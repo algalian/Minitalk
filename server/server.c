@@ -1,7 +1,17 @@
 #include"../minitalk.h"
 
+
+
 int main()
 {
-    printf("%i",getpid());
-    return(0);
+	pid_t pid;
+	
+	pid = getpid();
+	ft_printf("Process %i listening...\n",pid);
+	while(1)
+	{
+		sleep(5);
+		ft_printf("listening...\n");
+	}
+	return(0);
 }
