@@ -63,12 +63,12 @@ int	ft_atoi(const char *str)
 	int	num;
 	int	next;
 
-	if (clean_string (str, 0) == -1)
+	i = clean_string(str, 0);
+	if (i == -1)
 	{
 		ft_printf("PID must be a numeric value");
 		exit(1);
 	}
-	i = clean_string(str, 0);
 	num = str[i] - '0';
 	i++;
 	while (ft_isdigit(str[i]) == 1)
