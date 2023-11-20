@@ -1,22 +1,37 @@
 #include"../minitalk.h"
 
-static void	handle_signal()
+static void handle_signal(int signum)
 {
-	ft_printf("flag seen!\n");
-	exit(0);
+	static int c;
+	
+	if(signum == SIGUSR1)
+	{
+		ft_printf("%i", c);
+		c++;
+	}
+	if(signum == SIGUSR2)
+	{
+		c = c + 32;
+		ft_printf("%c\n", (char) c);
+		c = 0;
+	}
 }
 
+void action()
+{
 
+
+}
 int main()
 {
-	pid_t pid;
+	struct sigaction sa;
 
-	signal(SIGUSR1, &handle_signal);
-	pid = getpid();
-	ft_printf("Process %i listening...\n",pid);
+	ft_printf("%i\n",  getpid());
+	sa.sa_handler = &handle_signal;
+	sigaction(SIGUSR1,&sa,NULL);
 	while(1)
 	{
-		sleep(1);
+		pause();
 	}
 	return(0);
 }

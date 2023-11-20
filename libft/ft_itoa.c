@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include"libft.h"
+#include<stdio.h>
 
 unsigned int	ft_abs(int n)
 {
@@ -73,7 +74,7 @@ char	*ft_itoa(int n)
 }
 /*int main()
 {
-	int nb = -2147483648;
+	int nb = 1234;
 	printf("%s",ft_itoa(nb));
 	return(0);
 }*/
