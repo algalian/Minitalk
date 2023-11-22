@@ -2,8 +2,9 @@
 
 int main()
 {
-    static int c;
+    int c;
 
-    printf("%i", c);
+    c = 30;
+    printf("%i", c%2);
     return(0);
 }

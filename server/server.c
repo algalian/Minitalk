@@ -1,34 +1,32 @@
 #include"../minitalk.h"
 
+
 static void handle_signal(int signum)
 {
+	static int i;
 	static int c;
 	
-	if(signum == SIGUSR1)
+	while(i < 8)
 	{
-		ft_printf("%i", c);
-		c++;
+		c += ft_pow(2, i);
+		i++;
 	}
-	if(signum == SIGUSR2)
+	if(i >= 8)
 	{
-		c = c + 32;
-		ft_printf("%c\n", (char) c);
+		i = 0;
+		ft_printf("%c", (char) c);
 		c = 0;
 	}
 }
 
-void action()
-{
-
-
-}
 int main()
 {
-	struct sigaction sa;
+	int i;
 
+	signal(SIGUSR1, &handle_signal);
+	signal(SIGUSR2, &handle_signal);
 	ft_printf("%i\n",  getpid());
-	sa.sa_handler = &handle_signal;
-	sigaction(SIGUSR1,&sa,NULL);
+	i = 0; 
 	while(1)
 	{
 		pause();

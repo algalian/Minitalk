@@ -8,10 +8,5 @@
 #include<unistd.h>
 
 
-typedef struct data
-{
-    pid_t   pid;
-
-}t_data;
 
 #endif

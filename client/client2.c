@@ -1,5 +1,6 @@
 #include"../minitalk.h"
 
+
 int num_ok(char *s)
 {
 	int i;
@@ -25,20 +26,21 @@ int num_ok(char *s)
 void signal_seq(pid_t pid, char *s)
 {
 	int i;
-	
-	i = 0;
-	while(s[i])
+	int j;
+
+	j = 0;
+	while(s[j])
 	{
-		while(s[i] >= 1)
+		i = 32;
+		while(i < s[j])
 		{
-			if(s[i] % 2 == 0)
-			{
-				kill(pid, SIGUSR1);
-				usleep(100);
-			}
-			s[i] /= 2;
+			kill(pid, SIGUSR1);
+			usleep(50);
+			i++;
 		}
-		i++;
+		kill(pid, SIGUSR2);
+		usleep(50);
+		j++;
 	}
 }
 int main(int argc, char **argv)
