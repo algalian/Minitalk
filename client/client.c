@@ -31,10 +31,15 @@ void signal_seq(pid_t pid, char *s)
 	{
 		while(s[i] >= 1)
 		{
-			if(s[i] % 2 == 0)
+			if((int)s[i] % 2 == 0)
+			{
+				kill(pid, SIGUSR2);
+				usleep(50);
+			}
+			if((int)s[i] % 2 == 1)
 			{
 				kill(pid, SIGUSR1);
-				usleep(100);
+				usleep(50);
 			}
 			s[i] /= 2;
 		}

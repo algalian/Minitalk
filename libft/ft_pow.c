@@ -1,6 +1,5 @@
-#include<math.h>
-#include<stdio.h>
 #include"libft.h"
+#include<stdio.h>
 
 
 
@@ -8,7 +7,8 @@ static int ft_basic_pow(int base, int exp)
 {
     int i;
     int res;
-    
+    if(exp == 0)
+        return(1);
     i = 1;
     res = base;
     while(i < exp)
@@ -44,7 +44,7 @@ double ft_pow(double base, double exp)
 
 /*int main()
 {
-    double base = 1 / 2;
-    double exp  = 2;
+    double base = 8;
+    double exp  = 0;
     printf("%f", ft_pow(base, exp));
 }*/

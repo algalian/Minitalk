@@ -57,8 +57,9 @@ fclean: clean
 	@rm -f $(CLIENT2)
 	@rm -f $(SERVER)
 
+re: fclean all	
+
 .PHONY: all bonus clean fclean re server client norminette
 
 
 
-re: fclean all

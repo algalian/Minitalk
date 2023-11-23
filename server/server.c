@@ -6,12 +6,15 @@ static void handle_signal(int signum)
 	static int i;
 	static int c;
 	
-	while(i < 8)
+	if(i < 7)
 	{
-		c += ft_pow(2, i);
+		if(signum == SIGUSR1)
+		{	
+			c += ft_pow(2, i);
+		}
 		i++;
 	}
-	if(i >= 8)
+	if(i >= 7)
 	{
 		i = 0;
 		ft_printf("%c", (char) c);
