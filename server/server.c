@@ -1,7 +1,7 @@
 #include"../minitalk.h"
 
 
-static void handle_signal(int signum)
+static void handle_signal(int signum, siginfo_t *info, void *context)
 {
 	static int i;
 	static int c;
@@ -20,16 +20,19 @@ static void handle_signal(int signum)
 		ft_printf("%c", (char) c);
 		c = 0;
 	}
+	kill(info->si_pid,SIGUSR1);
 }
+
 
 int main()
 {
-	int i;
+	struct sigaction sa;
 
-	signal(SIGUSR1, &handle_signal);
-	signal(SIGUSR2, &handle_signal);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &handle_signal;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("%i\n",  getpid());
-	i = 0; 
 	while(1)
 	{
 		pause();

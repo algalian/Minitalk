@@ -1,6 +1,6 @@
 #include"../minitalk.h"
 
-int num_ok(char *s)
+void num_ok(char *s)
 {
 	int i;
 
@@ -19,7 +19,6 @@ int num_ok(char *s)
 		}
 		i++;
 	}
-	return(0);
 }
 
 void signal_seq(pid_t pid, char *s)
@@ -56,14 +55,7 @@ int main(int argc, char **argv)
 		return(1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (num_ok(argv[1]) == 0)
-	{
-		signal_seq(pid, argv[2]);
-	}
-	else
-	{
-		ft_printf("Error sending signal. Error 5\n");
-		return(5);
-	}	
+	num_ok(argv[1]);
+	signal_seq(pid, argv[2]);
 	return(0);
 }
