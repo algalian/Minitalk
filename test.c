@@ -5,6 +5,6 @@ int main()
     int c;
 
     c = 30;
-    printf("%i", c%2);
+    printf("printea!");
     return(0);
 }
