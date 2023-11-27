@@ -1,5 +1,6 @@
 #include"../minitalk.h"
 
+int ack;
 char *s;
 
 void num_ok(char *str)
@@ -23,30 +24,16 @@ void num_ok(char *str)
 	}
 }
 
-void send_seq(int signum, siginfo_t *info, void *context)
+static void acknowledged(int signum, siginfo_t *info, void *context)
 {
-	static int i;
-	//static int first;
-	
-	if(s[i])
-	{
-		if(s[i] >= 1)
-		{
-			if((int)s[i] % 2 == 0)
-				kill(info->si_pid, SIGUSR2);
-			if((int)s[i] % 2 == 1)
-				kill(info->si_pid, SIGUSR1);
-			ft_printf("%i\n", i);
-			s[i] /= 2;
-		}
-		i++;
-	}	
+	ack = 1;
 }
 
 int main(int argc, char **argv)
 {
 	pid_t pid;
 	struct sigaction sa;
+	int i;
 
 	if(argc != 3)
 	{
@@ -57,15 +44,32 @@ int main(int argc, char **argv)
 	num_ok(argv[1]);
 	s = argv[2];
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &send_seq;
+	sa.sa_sigaction = acknowledged;
+	ack = 0;
 	sigaction(SIGUSR1, &sa, NULL);
-	if((int)s[0] % 2 == 0)
-		kill(pid, SIGUSR2);
-	if((int)s[0] % 2 == 1)
-		kill(pid, SIGUSR1);
+	i = 0;
 	while(1)
 	{
-		pause();
-	}
+		if(s[i] >= 1)
+		{
+			if((int)s[i] % 2 == 0)
+				kill(pid, SIGUSR2);
+			if((int)s[i] % 2 == 1)
+				kill(pid, SIGUSR1);
+			s[i] /= 2;
+		}
+		if(s[i] < 1)
+			i++;
+		if(!s[i])
+		{
+			ft_printf("string terminated\n");
+			exit(0);
+		}
+		ack = 0;
+		while(ack == 0)
+		{
+			pause();
+		}
+	}	
 	return(0);
 }
