@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	num_ok(argv[1]);
 	s = argv[2];
+	ft_printf("%s\n", s);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &acknowledged;
 	sigaction(SIGUSR1, &sa, NULL);
