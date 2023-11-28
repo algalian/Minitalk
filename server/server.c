@@ -5,7 +5,7 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 {
 	static int i;
 	static int c;
-	
+
 	if(i < 7)
 	{
 		if(signum == SIGUSR1)
@@ -16,9 +16,9 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 	}
 	if(i >= 7)
 	{
-		i = 0;
 		ft_printf("%c", (char) c);
 		c = 0;
+		i = 0;
 	}
 	kill(info->si_pid,SIGUSR1);
 }
