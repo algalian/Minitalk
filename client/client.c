@@ -1,5 +1,6 @@
 #include"../minitalk.h"
 
+volatile int ack;
 
 void num_ok(char *str)
 {
@@ -25,6 +26,8 @@ void num_ok(char *str)
 static void acknowledged(int signum, siginfo_t *info, void *context)
 {
 	static int	i;
+	
+	ack = 1;
 	i++;
 	ft_printf("counter signal received %i\n", i);
 	
@@ -70,7 +73,9 @@ int main(int argc, char **argv)
 		}
 		if(s[i] <= 1)
 			i++;
-		pause();
+		ack = 0;
+		while(ack == 0)
+			pause();
 	}
 	ft_printf("string terminated \n");	
 	return(0);

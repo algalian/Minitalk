@@ -37,8 +37,6 @@ int main()
 	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("%i\n",  getpid());
 	while(1)
-	{
 		pause();
-	}
 	return(0);
 }
