@@ -1,6 +1,5 @@
 #include"../minitalk.h"
 
-
 static void handle_signal(int signum, siginfo_t *info, void *context)
 {
 	static int i;
@@ -20,7 +19,11 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 		c = 0;
 		i = 0;
 	}
-	kill(info->si_pid,SIGUSR1);
+	if(kill(info->si_pid,SIGUSR1) == -1)
+	{
+		ft_printf("confirmation error\n");
+		exit(0);
+	}
 }
 
 
