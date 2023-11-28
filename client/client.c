@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	i = 0;
 	while(1)
 	{
-		if(s[i] > 1)
+		if(s[i] >= 1)
 		{
 			if((int)s[i] % 2 == 0)
 				kill(pid, SIGUSR2);
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 				kill(pid, SIGUSR1);
 			s[i] /= 2;
 		}
-		if(s[i] <= 1)
+		if(s[i] < 1)
 			i++;
 		if(!s[i])
 		{
