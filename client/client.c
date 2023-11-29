@@ -1,7 +1,5 @@
 #include"../minitalk.h"
 
-volatile int ack;
-
 void num_ok(char *str)
 {
 	int i;
@@ -22,23 +20,37 @@ void num_ok(char *str)
 		i++;
 	}
 }
-
-static void acknowledged(int signum, siginfo_t *info, void *context)
+void send_seq(pid_t pid, char *s)
 {
-	static int	i;
-	
-	ack = 1;
-	i++;
-	ft_printf("counter signal received %i\n", i);
-	
+	static int i;
+
+	while(s[i])
+	{
+		while(s[i] >= 1)
+		{
+			if((int)s[i] % 2 == 0)
+				if(kill(pid, SIGUSR2) == -1)
+				{
+					ft_printf("error sending signal\n");
+					exit(4);
+				}
+				usleep(100);
+			if((int)s[i] % 2 == 1)
+				if(kill(pid, SIGUSR1) == -1)
+				{
+					ft_printf("error sending signal\n");
+					exit(4);
+				}
+				usleep(100);
+			s[i] /= 2;
+		}
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
 {
-	char *s;
 	pid_t pid;
-	struct sigaction sa;
-	int i;
 
 	if(argc != 3)
 	{
@@ -47,36 +59,7 @@ int main(int argc, char **argv)
 	}
 	pid = ft_atoi(argv[1]);
 	num_ok(argv[1]);
-	s = argv[2];
-	ft_printf("%s\n", s);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &acknowledged;
-	sigaction(SIGUSR1, &sa, NULL);
-	i = 0;
-	while(s[i])
-	{
-		if(s[i] > 1)
-		{
-			if((int)s[i] % 2 == 0)
-				if(kill(pid, SIGUSR2) == -1)
-				{
-					ft_printf("error sending signal\n");
-					exit(4);
-				}
-			if((int)s[i] % 2 == 1)
-				if(kill(pid, SIGUSR1) == -1)
-				{
-					ft_printf("error sending signal\n");
-					exit(4);
-				}
-			s[i] /= 2;
-		}
-		if(s[i] <= 1)
-			i++;
-		ack = 0;
-		while(ack == 0)
-			pause();
-	}
+	send_seq(pid, argv[2]);
 	ft_printf("string terminated \n");	
 	return(0);
 }

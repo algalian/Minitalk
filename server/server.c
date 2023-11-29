@@ -19,11 +19,6 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 		c = 0;
 		i = 0;
 	}
-	if(kill(info->si_pid,SIGUSR1) == -1)
-	{
-		ft_printf("confirmation error\n");
-		exit(0);
-	}
 }
 
 
