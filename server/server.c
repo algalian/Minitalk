@@ -21,8 +21,12 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 		c = 0;
 		i = 0;
 	}
-	usleep(100);
-	kill(info->si_pid, SIGUSR1);
+	usleep(100);	
+	if(kill(info->si_pid, SIGUSR1) == -1)
+	{
+		ft_printf("confirmation error");
+		exit(1);
+	}
 }
 
 
@@ -34,12 +38,10 @@ int main()
 	sa.sa_sigaction = &handle_signal;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	done = 0;
 	ft_printf("%i\n",  getpid());
 	while(1)
 	{
-		pause();
-		//kill(done, SIGUSR1);				
+		pause();				
 	}
 	return(0);
 }

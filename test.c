@@ -1,10 +1,11 @@
 #include<stdio.h>
+#include"minitalk.h"
 
 int main()
 {
-    int c;
+    char c;
 
-    c = 30;
-    printf("printea!");
+    c = 'a';
+    printf("%i", c);
     return(0);
 }

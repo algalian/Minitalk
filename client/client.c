@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	char *s;
 	pid_t pid;
 	struct sigaction sa;
-	static int i;
+	int i;
 	int sec;
 
 	if(argc != 3)
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 			{
 				usleep(1);
 				sec++;
-				if(sec >= 3000000)
+				if(sec >= 2000000)
 				{
 					ft_printf("Timeout. No one is listening\n");
 					exit(5);
@@ -83,7 +83,6 @@ int main(int argc, char **argv)
 			}
 		}
 		i++;
-
 	}
 	ft_printf("string terminated \n");	
 	return(0);
