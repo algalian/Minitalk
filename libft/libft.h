@@ -22,6 +22,11 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+typedef struct s_ratio
+{
+	int num;
+	int den;
+}	t_ratio;
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -76,5 +81,6 @@ char	*ft_ftoa(double f);
 float	ft_truncf(float n);
 float	ft_fabs(float n);
 double	ft_pow(double base, double exp);
+t_ratio	ft_ratio(double n);
 
 #endif

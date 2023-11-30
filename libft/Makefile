@@ -55,6 +55,7 @@ SRC = ft_isalpha.c \
 	  ft_truncf.c\
 	  ft_fabs.c \
 	  ft_pow.c \
+	  ft_ratio.c \
 
 SRC_B = ft_lstnew_bonus.c \
 		ft_lstadd_front_bonus.c \
