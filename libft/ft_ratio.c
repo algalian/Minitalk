@@ -14,10 +14,15 @@ t_ratio ft_ratio(double n)
     i = 1;
     output.num = input.num;
     output.den = input.den;
-    while(output.num % i == 0 && output.den % i == 0)
+    while(i < output.num / 2 && i < output.num / 2)
     {
-        output.num /= i;
-        output.den /= i;
+        if(output.num % i == 0 
+            && i < output.den % i == 0)
+        {
+            output.num /= i;
+            output.num /= i;
+            i = 0;
+        }
         i++;
     }
     return(output);
