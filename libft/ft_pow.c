@@ -24,7 +24,7 @@ static double ft_float_pow(double base, int exp)
     double long res;
 
     ratio = ft_ratio(base);
-    res = ft_basic_pow(ratio.num, fabs(exp)) / ft_basic_pow(ratio.dem, fabs(exp));
+    res = ft_basic_pow(ratio.num, ft_fabs(exp)) / ft_basic_pow(ratio.den, ft_fabs(exp));
     if(exp < 0)
         return(1 / res);
     return(res);
@@ -52,7 +52,7 @@ double ft_pow(double base, double exp)
     {
         if(base == 0)
         {
-            ft_printf("0^0 undefined");
+            printf("0^0 undefined");
             exit(1);
         }
         return(1);
@@ -71,6 +71,6 @@ double ft_pow(double base, double exp)
 int main()
 {
     double base = 8;
-    double exp  = 0;
+    double exp  = -2;
     printf("%f", ft_pow(base, exp));
 }
