@@ -15,7 +15,7 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 	}
 	if(i >= 7)
 	{
-		ft_printf("%c", (char) c);
+		write(1, &c, 1);
 		c = 0;
 		i = 0;
 	}
