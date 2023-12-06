@@ -1,7 +1,4 @@
 #include"libft.h"
-#include<stdio.h>
-
-
 
 static long long ft_basic_pow(int base, int exp)
 {
@@ -52,7 +49,7 @@ double ft_pow(double base, double exp)
     {
         if(base == 0)
         {
-            printf("0^0 undefined");
+            ft_printf("0^0 undefined");
             exit(1);
         }
         return(1);
@@ -68,9 +65,9 @@ double ft_pow(double base, double exp)
     return(ft_basic_pow(base, exp));
 }
 
-int main()
+/*int main()
 {
     double base = 8;
     double exp  = -2;
     printf("%f", ft_pow(base, exp));
-}
+}*/

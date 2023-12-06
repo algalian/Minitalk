@@ -8,7 +8,7 @@ void num_ok(char *str)
 
 	if(ft_atoi(str) <= 0)
 	{
-		ft_printf("PID must be a positive numeric value. Error 3\n");
+		ft_printf("PID must be a positive numeric value. Error 2\n");
 		exit(2);
 	}
 	i = 0;
@@ -16,7 +16,7 @@ void num_ok(char *str)
 	{
 		if(ft_isdigit(str[i]) != 1 )
 		{
-			ft_printf("PID must be a positive numeric value\n. Error 4\n");
+			ft_printf("PID must be a positive numeric value\n. Error 3\n");
 			exit(3);
 		}
 		i++;
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 			{
 				if(kill(pid, SIGUSR2) == -1)
 				{
-					ft_printf("error sending signal\n");
+					ft_printf("error sending signal. Error 4\n");
 					exit(4);
 				}
 			}
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 			{
 				if(kill(pid, SIGUSR1) == -1)
 				{
-					ft_printf("error sending signal\n");
+					ft_printf("error sending signal. Error 4\n");
 					exit(4);
 				}
 			}
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 				sec++;
 				if(sec >= 2000000)
 				{
-					ft_printf("Timeout. No one is listening\n");
+					ft_printf("Timeout. No one is listening. Error 5\n");
 					exit(5);
 				}
 			}
