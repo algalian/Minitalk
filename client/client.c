@@ -56,7 +56,7 @@ static void acknowledged(int signum, siginfo_t *info, void *context)
 		n--;
 	}
 }*/
-
+#include <string.h>
 int main(int argc, char **argv)
 {
 	char *s;
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	}
 	pid = ft_atoi(argv[1]);
 	num_ok(argv[1]);
-	s = argv[2];
+	s = ft_strdup(argv[2]);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &acknowledged;
 	sigaction(SIGUSR1, &sa, NULL);
@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 			s[i] /= 2;
 		}
 		usleep(100);
-		if(argv[2][i] < 64)
+		if(argv[2][0] < 64)
 		{
 			if(kill(pid, SIGUSR2) == -1)
 			{
