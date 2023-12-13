@@ -4,26 +4,30 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 {
 	static int i;
 	static int c;
-
+	
+	ft_printf("%i: %i, ", i, c);
 	if(i < 7)
 	{
-		if(signum == SIGUSR1)
-		{	
+		if(signum == SIGUSR1)	
+		{
 			c += ft_pow(2, i);
 		}
 		i++;
 	}
 	if(i >= 7)
 	{
-		write(1, &c, 1);
+		ft_printf("%i: %i-> %c\n", i, c, c);
 		c = 0;
 		i = 0;
 	}
-	if(kill(info->si_pid, SIGUSR1) == -1)
+	/*if(kill(info->si_pid, SIGUSR1) == -1)
 	{
 		ft_printf("confirmation error");
 		exit(1);
 	}
+	ft_printf("%i", i);
+	i++;*/
+
 }
 
 

@@ -5,7 +5,7 @@ int main()
 {
     char c;
 
-    c = 'a';
-    printf("%i", c);
+    c = '?';
+    printf("%c", c);
     return(0);
 }

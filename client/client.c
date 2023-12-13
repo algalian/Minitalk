@@ -23,10 +23,39 @@ void num_ok(char *str)
 	}
 }
 
+/*static void timer(void)
+{
+	static int sec;
+
+	usleep(1);
+	sec++;
+	if(sec >= 2000000)
+	{
+		ft_printf("Timeout. No one is listening. Error 5\n");	
+		exit(5);
+	}
+}*/
+
 static void acknowledged(int signum, siginfo_t *info, void *context)
 {	
 	ack = 1;
 }
+
+/*static void fill_zeros(char c, pid_t pid)
+{
+	int n;
+
+	n = 6;
+	while(c < ft_pow(2, n))
+	{
+		if(kill(pid, SIGUSR2) == -1)
+		{
+			ft_printf("Error sending signal. Error 4\n");
+			exit(4);
+		}
+		n--;
+	}
+}*/
 
 int main(int argc, char **argv)
 {
@@ -34,7 +63,6 @@ int main(int argc, char **argv)
 	pid_t pid;
 	struct sigaction sa;
 	int i;
-	int sec;
 
 	if(argc != 3)
 	{
@@ -53,37 +81,37 @@ int main(int argc, char **argv)
 		while(s[i] >= 1)
 		{
 			if((int)s[i] % 2 == 0)
-			{
+			{	
 				if(kill(pid, SIGUSR2) == -1)
 				{
-					ft_printf("error sending signal. Error 4\n");
+					ft_printf("Error sending signal. Error 4\n");
 					exit(4);
 				}
+				usleep(100);
 			}
 			if((int)s[i] % 2 == 1)
-			{
+			{	
 				if(kill(pid, SIGUSR1) == -1)
 				{
-					ft_printf("error sending signal. Error 4\n");
+					ft_printf("Error sending signal. Error 4\n");
 					exit(4);
 				}
+				usleep(100);
 			}
 			s[i] /= 2;
-			ack = 0;
-			sec = 0;
-			while(ack == 0)
+		}
+		usleep(100);
+		if(argv[2][i] < 64)
+		{
+			if(kill(pid, SIGUSR2) == -1)
 			{
-				usleep(1);
-				sec++;
-				if(sec >= 2000000)
-				{
-					ft_printf("Timeout. No one is listening. Error 5\n");
-					exit(5);
-				}
+				ft_printf("Error sending signal. Error 4\n");
+				exit(4);
 			}
+			usleep(100);
 		}
 		i++;
 	}
-	ft_printf("string terminated \n");	
+	ft_printf("string terminated\n");	
 	return(0);
 }
