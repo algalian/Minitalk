@@ -9,14 +9,12 @@
 /*   Updated: 2023/11/14 17:36:16 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include"libft.h"
-
-float ft_truncf(float n)
+int	ft_truncf(float n)
 {
-    int x;
+	int	x;
 
-    x = (int) n;
-
-    return(x);
+	x = (int) n;
+	return (x);
 }

@@ -9,7 +9,7 @@
 /*   Updated: 2023/01/19 14:37:17 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

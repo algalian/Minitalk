@@ -13,9 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include<stdlib.h>
-# include<unistd.h>
-# include<stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -24,8 +24,8 @@ typedef struct s_list
 }	t_list;
 typedef struct s_ratio
 {
-	int num;
-	int den;
+	int	num;
+	int	den;
 }	t_ratio;
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

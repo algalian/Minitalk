@@ -9,7 +9,7 @@
 /*   Updated: 2023/01/19 13:28:29 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+#include "libft.h"
 
 static int	ft_blanks(char c)
 {

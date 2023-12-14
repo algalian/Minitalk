@@ -1,116 +1,101 @@
-#include"../minitalk.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algalian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 19:02:33 by algalian          #+#    #+#             */
+/*   Updated: 2023/12/14 19:02:35 by algalian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ack;
+#include "../minitalk.h"
 
-void num_ok(char *str)
+void	num_ok(char *str)
 {
-	int i;
+	int	i;
 
-	if(ft_atoi(str) <= 0)
+	if (ft_atoi(str) <= 0)
 	{
 		ft_printf("PID must be a positive numeric value. Error 2\n");
 		exit(2);
 	}
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(ft_isdigit(str[i]) != 1 )
+		if (ft_isdigit(str[i]) != 1)
 		{
-			ft_printf("PID must be a positive numeric value\n. Error 3\n");
-			exit(3);
+			ft_printf("PID must be a positive numeric value. Error 2\n");
+			exit(2);
 		}
 		i++;
 	}
 }
 
-static void timer(void)
+static void	fill_zeros(char c, pid_t pid)
 {
-	unsigned int sec;
-	
-	sec = 0;
-	while(ack == 0)
-	{
-		usleep(1);
-		sec++;
-		if(sec > 2000000)
-		{	
-			ft_printf("Timeout. No one is listening. Error 5\n");	
-			exit(5);
-		}
-	}
-	ack = 0;
-}
-
-static void acknowledged(int signum, siginfo_t *info, void *context)
-{	
-	ack = 1;
-}
-
-static void fill_zeros(char c, pid_t pid)
-{
-	int n;
+	int	n;
 
 	n = 6;
-	while(c < ft_pow(2, n))
+	while (c < ft_pow(2, n))
 	{
-		if(kill(pid, SIGUSR2) == -1)
+		if (kill(pid, SIGUSR2) == -1)
 		{
-			ft_printf("Error sending signal. Error 4\n");
-			exit(4);
+			ft_printf("Error sending signal. Error 3\n");
+			exit(3);
 		}
+		usleep(100);
 		n--;
 	}
 }
 
-int main(int argc, char **argv)
+static void	send_sig(pid_t pid, int signum)
 {
-	char *s;
-	pid_t pid;
-	struct sigaction sa;
-	int i;
+	if (kill(pid, signum) == -1)
+	{
+		ft_printf("Error sending signal. Error 3\n");
+		exit(3);
+	}
+}
 
-	if(argc != 3)
+static void	send_seq(char *s, char *t, pid_t pid)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] >= 1)
+		{
+			if ((int)s[i] % 2 == 0)
+				send_sig(pid, SIGUSR2);
+			if ((int)s[i] % 2 == 1)
+				send_sig(pid, SIGUSR1);
+			usleep(100);
+			s[i] /= 2;
+		}
+		if (t[i] < 64)
+			fill_zeros(t[i], pid);
+		i++;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	char	*s;
+	pid_t	pid;
+	int		i;
+
+	if (argc != 3)
 	{
 		ft_printf("Wrong number of arguments. Error 1\n");
-		return(1);
+		return (1);
 	}
 	pid = ft_atoi(argv[1]);
 	num_ok(argv[1]);
 	s = ft_strdup(argv[2]);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &acknowledged;
-	sigaction(SIGUSR1, &sa, NULL);
-	i = 0;
-	while(s[i])
-	{
-		while(s[i] >= 1)
-		{
-			if((int)s[i] % 2 == 0)
-			{	
-				if(kill(pid, SIGUSR2) == -1)
-				{
-					ft_printf("Error sending signal. Error 4\n");
-					exit(4);
-				}
-			}
-			if((int)s[i] % 2 == 1)
-			{	
-				if(kill(pid, SIGUSR1) == -1)
-				{
-					ft_printf("Error sending signal. Error 4\n");
-					exit(4);
-				}
-			}
-			s[i] /= 2;
-			timer();
-		}
-		if(argv[2][i] < 64)
-		{
-			fill_zeros(argv[2][i], pid);
-			timer();
-		}
-		i++;
-	}
-	ft_printf("string terminated\n");	
-	return(0);
+	send_seq(s, argv[2], pid);
+	ft_printf("string terminated\n");
+	return (0);
 }

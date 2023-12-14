@@ -9,7 +9,7 @@
 /*   Updated: 2023/01/19 14:36:55 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+#include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
@@ -28,7 +28,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	if (dstsize > i)
 	{
 		dst[i] = '\0';
-	}	
+	}
 	return (ft_strlen(src));
 }
 

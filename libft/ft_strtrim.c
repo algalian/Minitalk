@@ -9,7 +9,7 @@
 /*   Updated: 2023/01/24 19:42:37 by algalian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+#include "libft.h"
 
 static int	ft_left(char const *s1, char const *set)
 {
