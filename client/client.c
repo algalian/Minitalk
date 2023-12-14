@@ -100,8 +100,7 @@ int main(int argc, char **argv)
 			}
 			s[i] /= 2;
 		}
-		usleep(100);
-		if(argv[2][0] < 64)
+		if(argv[2][i] < 64)
 		{
 			if(kill(pid, SIGUSR2) == -1)
 			{

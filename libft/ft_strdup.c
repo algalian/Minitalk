@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include"libft.h"
 
-char	*ft_strd(const char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char			*s2;
 
