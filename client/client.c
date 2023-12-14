@@ -23,25 +23,30 @@ void num_ok(char *str)
 	}
 }
 
-/*static void timer(void)
+static void timer(void)
 {
-	static int sec;
-
-	usleep(1);
-	sec++;
-	if(sec >= 2000000)
+	unsigned int sec;
+	
+	sec = 0;
+	while(ack == 0)
 	{
-		ft_printf("Timeout. No one is listening. Error 5\n");	
-		exit(5);
+		usleep(1);
+		sec++;
+		if(sec > 2000000)
+		{	
+			ft_printf("Timeout. No one is listening. Error 5\n");	
+			exit(5);
+		}
 	}
-}*/
+	ack = 0;
+}
 
 static void acknowledged(int signum, siginfo_t *info, void *context)
 {	
 	ack = 1;
 }
 
-/*static void fill_zeros(char c, pid_t pid)
+static void fill_zeros(char c, pid_t pid)
 {
 	int n;
 
@@ -55,8 +60,8 @@ static void acknowledged(int signum, siginfo_t *info, void *context)
 		}
 		n--;
 	}
-}*/
-#include <string.h>
+}
+
 int main(int argc, char **argv)
 {
 	char *s;
@@ -87,7 +92,6 @@ int main(int argc, char **argv)
 					ft_printf("Error sending signal. Error 4\n");
 					exit(4);
 				}
-				usleep(100);
 			}
 			if((int)s[i] % 2 == 1)
 			{	
@@ -96,18 +100,14 @@ int main(int argc, char **argv)
 					ft_printf("Error sending signal. Error 4\n");
 					exit(4);
 				}
-				usleep(100);
 			}
 			s[i] /= 2;
+			timer();
 		}
 		if(argv[2][i] < 64)
 		{
-			if(kill(pid, SIGUSR2) == -1)
-			{
-				ft_printf("Error sending signal. Error 4\n");
-				exit(4);
-			}
-			usleep(100);
+			fill_zeros(argv[2][i], pid);
+			timer();
 		}
 		i++;
 	}

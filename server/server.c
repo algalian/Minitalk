@@ -15,18 +15,15 @@ static void handle_signal(int signum, siginfo_t *info, void *context)
 	}
 	if(i >= 7)
 	{
-		write(1, &c, 1);
+		ft_printf("%c", c);
 		c = 0;
 		i = 0;
 	}
-	/*if(kill(info->si_pid, SIGUSR1) == -1)
+	if(kill(info->si_pid, SIGUSR1) == -1)
 	{
 		ft_printf("confirmation error");
 		exit(1);
 	}
-	ft_printf("%i", i);
-	i++;*/
-
 }
 
 

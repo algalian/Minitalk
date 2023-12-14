@@ -36,7 +36,7 @@ $(SERVER_OUTPUT_DIR)/%.o: $(SERVER_SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(SERVER_OUTPUT_DIR)/$(SERVER) $(CLIENT_OUTPUT_DIR)/$(CLIENT)
-	@cd obj  && mv ../$(SERVER_OUTPUT_DIR)/$(SERVER) ../ && mv ../$(CLIENT_OUTPUT_DIR)/$(CLIENT) ../
+	 @cd obj  && mv ../$(SERVER_OUTPUT_DIR)/$(SERVER) ../ && mv ../$(CLIENT_OUTPUT_DIR)/$(CLIENT) ../ 
 	
 clean:
 	@make clean -sC libft
