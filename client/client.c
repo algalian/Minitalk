@@ -33,6 +33,17 @@ void	num_ok(char *str)
 	}
 }
 
+static void	send_sig(pid_t pid, int signum)
+{
+	if (kill(pid, signum) == -1)
+	{
+		ft_printf("Error sending signal. Error 3\n");
+		exit(3);
+	}
+	usleep(100);
+
+}
+
 static void	fill_zeros(char c, pid_t pid)
 {
 	int	n;
@@ -40,22 +51,28 @@ static void	fill_zeros(char c, pid_t pid)
 	n = 6;
 	while (c < ft_pow(2, n))
 	{
-		if (kill(pid, SIGUSR2) == -1)
-		{
-			ft_printf("Error sending signal. Error 3\n");
-			exit(3);
-		}
-		usleep(100);
+		send_sig(pid, SIGUSR2);
 		n--;
 	}
 }
 
-static void	send_sig(pid_t pid, int signum)
+static void send_size(int size, pid_t pid)
 {
-	if (kill(pid, signum) == -1)
+	int i;
+	
+	while(size >= 1)
 	{
-		ft_printf("Error sending signal. Error 3\n");
-		exit(3);
+		if (size % 2 == 0)
+			send_sig(pid, SIGUSR2);
+		if (size % 2 == 1)
+			send_sig(pid, SIGUSR1);
+		size /= 2;
+	}
+	i = 0;
+	while(i < 7)
+	{	
+		send_sig(pid, SIGUSR2); 
+		i++;
 	}
 }
 
@@ -72,7 +89,6 @@ static void	send_seq(char *s, char *t, pid_t pid)
 				send_sig(pid, SIGUSR2);
 			if ((int)s[i] % 2 == 1)
 				send_sig(pid, SIGUSR1);
-			usleep(100);
 			s[i] /= 2;
 		}
 		if (t[i] < 64)
@@ -85,7 +101,6 @@ int	main(int argc, char **argv)
 {
 	char	*s;
 	pid_t	pid;
-	int		i;
 
 	if (argc != 3)
 	{
@@ -95,6 +110,7 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	num_ok(argv[1]);
 	s = ft_strdup(argv[2]);
+	send_size(ft_strlen(s), pid);
 	send_seq(s, argv[2], pid);
 	ft_printf("string terminated\n");
 	return (0);
