@@ -19,4 +19,14 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+typedef struct log
+{
+    int c;
+    int j;
+    int i;
+}	t_log;
+
+void	send_seq(char *s, char *t, pid_t pid);
+void	send_size(int size, pid_t pid);
+
 #endif

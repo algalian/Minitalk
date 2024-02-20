@@ -7,7 +7,8 @@ SERVER_SRC_DIR = server
 CLIENT_OUTPUT_DIR = obj/client
 SERVER_OUTPUT_DIR = obj/server
 
-SRCS_CLIENT = $(CLIENT_SRC_DIR)/client.c		
+SRCS_CLIENT = $(CLIENT_SRC_DIR)/client.c\
+				$(CLIENT_SRC_DIR)/client_comms.c	
 							
 SRCS_SERVER = $(SERVER_SRC_DIR)/server.c
 
