@@ -78,7 +78,7 @@ int		ft_putnb(long long nb, char *sym);
 int		ft_printf(char const *item, ...);
 double	ft_atof(const char *str);
 char	*ft_ftoa(double f);
-int	ft_truncf(float n);
+int		ft_truncf(float n);
 float	ft_fabs(float n);
 double	ft_pow(double base, double exp);
 t_ratio	ft_ratio(double n);

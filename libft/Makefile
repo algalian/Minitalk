@@ -76,7 +76,7 @@ CFLAGS = -Wall -Werror
 CC = gcc
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -g -c $<
 all: $(NAME)
 
 $(NAME): $(OBJ)
