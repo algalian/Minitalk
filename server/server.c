@@ -19,16 +19,16 @@ static void	handle_signal(int signum, siginfo_t *info, void *context)
 
 	if (!a)
 		a = malloc(sizeof(int) * 3);
-	if (a[0] < 7)
+	if (!a[0])
 		hold(a, signum);
-	if (a[0] == 7)
+	if (a[0] == 1)
 	{
 		s = define(a);
 		return ;
 	}
-	if (a[1] < 7 && a[0] >= 7)
+	if (a[1] < 7 && a[0] > 1)
 		guess(a, signum);
-	if (a[1] >= 7 && a[0] >= 7)
+	if (a[1] >= 7 && a[0] > 1)
 	{
 		if (attach(s, a[2], 0) == 1)
 		{

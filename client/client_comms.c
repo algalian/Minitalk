@@ -38,20 +38,13 @@ void	send_size(int size, pid_t pid)
 {
 	int	i;
 
-	while (size >= 1)
-	{
-		if (size % 2 == 0)
-			send_sig(pid, SIGUSR2);
-		if (size % 2 == 1)
-			send_sig(pid, SIGUSR1);
-		size /= 2;
-	}
 	i = 0;
-	while (i < 7)
+	while (i < size)
 	{
-		send_sig(pid, SIGUSR2);
+		send_sig(pid, SIGUSR1);
 		i++;
 	}
+	send_sig(pid, SIGUSR2);
 }
 
 void	send_seq(char *s, char *t, pid_t pid)

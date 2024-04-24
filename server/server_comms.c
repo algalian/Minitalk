@@ -16,14 +16,11 @@ void	hold(int *a, int signum)
 {
 	if (signum == SIGUSR1)
 	{
-		a[2] += ft_pow(2, a[1]);
-		a[0] = 0;
-		a[1]++;
+		a[2]++;
 	}
 	if (signum == SIGUSR2)
 	{
 		a[0]++;
-		a[1]++;
 	}
 }
 
@@ -31,6 +28,12 @@ char	*define(int *a)
 {
 	char	*s;
 
+	if (a[2] == 0)
+	{
+		a[0] = 0;
+		a[1] = 0;
+		return (NULL);
+	}
 	s = malloc(sizeof(char) * (a[2] + 1));
 	if (!s)
 	{
